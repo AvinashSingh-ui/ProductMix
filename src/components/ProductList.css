@@ -1,0 +1,143 @@
+.products-section-container {
+  max-width: 1280px;
+  margin: 2rem auto 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.products-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.products-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.products-main-title {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.products-count-badge {
+  background: linear-gradient(135deg, var(--color-blue-light), rgba(37, 99, 235, 0.15));
+  color: var(--color-blue);
+  border: 1px solid var(--color-blue-glow);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+  gap: 1.5rem;
+}
+
+.empty-state-card {
+  background-color: var(--bg-card);
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 4rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background-image: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.04) 0%, transparent 60%);
+}
+
+.empty-icon {
+  font-size: 3.5rem;
+  color: var(--color-yellow);
+  animation: float 3s ease-in-out infinite;
+}
+
+.empty-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.empty-text {
+  color: var(--text-muted);
+  max-width: 400px;
+  font-size: 0.95rem;
+}
+
+.btn-empty-reset {
+  background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-blue-dark) 100%);
+  color: var(--color-white);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  box-shadow: var(--shadow-blue);
+  transition: all var(--transition-fast);
+}
+
+.btn-empty-reset:hover {
+  background: linear-gradient(135deg, var(--color-blue-dark), var(--color-blue-hover));
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.5);
+}
+
+.skeleton-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+}
+
+.skeleton-box {
+  background: linear-gradient(90deg, var(--color-gray-100) 25%, var(--color-gray-200) 50%, var(--color-gray-100) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-img {
+  height: 210px;
+  width: 100%;
+}
+
+.skeleton-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skeleton-line {
+  height: 16px;
+  width: 80%;
+}
+
+.skeleton-line-short {
+  height: 14px;
+  width: 40%;
+}
+
+.skeleton-btn {
+  height: 40px;
+  width: 100%;
+  margin-top: 0.5rem;
+}
