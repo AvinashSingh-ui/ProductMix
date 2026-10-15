@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ProductContext } from "../context/productContext";
 import "./CartDrawer.css";
 
@@ -24,13 +24,35 @@ function CartDrawer() {
     setIsCartOpen(false);
   };
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setIsCartOpen(false);
+      }
+    };
+    if (isCartOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isCartOpen, setIsCartOpen]);
+
   return (
-    <div className={`drawer-overlay ${isCartOpen ? "active" : ""}`} onClick={() => setIsCartOpen(false)}>
-      <div className="cart-drawer-panel" onClick={(e) => e.stopPropagation()}>
+    <div
+      className={`drawer-overlay ${isCartOpen ? "active" : ""}`}
+      onClick={() => setIsCartOpen(false)}
+      role="presentation"
+    >
+      <div
+        className="cart-drawer-panel"
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="cart-drawer-title"
+      >
         <div className="drawer-header">
           <div className="drawer-title-group">
             <i className="fa-solid fa-bag-shopping drawer-title-icon"></i>
-            <span>Your Cart</span>
+            <span id="cart-drawer-title">Your Cart</span>
             <span className="products-count-badge">{cartItemCount}</span>
           </div>
           <button

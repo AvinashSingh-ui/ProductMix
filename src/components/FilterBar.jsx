@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { ProductContext } from "../context/productContext";
 import "./FilterBar.css";
 
@@ -16,14 +16,43 @@ function FilterBar() {
     formatINR
   } = useContext(ProductContext);
 
+  const pillsRowRef = useRef(null);
+
+  const allCategoryList = ["all", ...categories];
+
+  const handlePillKeyDown = (e, index) => {
+    let targetIndex = -1;
+
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      targetIndex = (index + 1) % allCategoryList.length;
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      targetIndex = (index - 1 + allCategoryList.length) % allCategoryList.length;
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      targetIndex = 0;
+    } else if (e.key === "End") {
+      e.preventDefault();
+      targetIndex = allCategoryList.length - 1;
+    }
+
+    if (targetIndex !== -1) {
+      const selectedCat = allCategoryList[targetIndex];
+      setCategory(selectedCat);
+      const targetPill = pillsRowRef.current?.querySelector(`[data-cat="${selectedCat}"]`);
+      targetPill?.focus();
+    }
+  };
+
   return (
-    <section className="filter-container">
+    <section className="filter-container" aria-label="Product filters and sorting">
       <div className="filter-card">
         <div className="filter-top-row">
           <div className="filter-group">
             <div className="filter-control">
               <label className="filter-label" htmlFor="filter-category-select">
-                <i className="fa-solid fa-list-check"></i> Category
+                <i className="fa-solid fa-list-check" aria-hidden="true"></i> Category
               </label>
               <select
                 id="filter-category-select"
@@ -43,7 +72,7 @@ function FilterBar() {
 
             <div className="filter-control">
               <label className="filter-label" htmlFor="filter-sort-select">
-                <i className="fa-solid fa-arrow-down-short-wide"></i> Sort By
+                <i className="fa-solid fa-arrow-down-short-wide" aria-hidden="true"></i> Sort By
               </label>
               <select
                 id="filter-sort-select"
@@ -62,7 +91,7 @@ function FilterBar() {
 
             <div className="price-range-control">
               <label className="filter-label" htmlFor="filter-price-slider">
-                <i className="fa-solid fa-indian-rupee-sign"></i> Max:
+                <i className="fa-solid fa-indian-rupee-sign" aria-hidden="true"></i> Max:
               </label>
               <input
                 id="filter-price-slider"
@@ -73,9 +102,13 @@ function FilterBar() {
                 max={maxAvailablePrice}
                 step="500"
                 value={maxPrice}
+                aria-valuemin={0}
+                aria-valuemax={maxAvailablePrice}
+                aria-valuenow={maxPrice}
+                aria-valuetext={`₹${formatINR(maxPrice)}`}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
               />
-              <span className="price-val">₹{formatINR(maxPrice)}</span>
+              <span className="price-val" aria-hidden="true">₹{formatINR(maxPrice)}</span>
             </div>
           </div>
 
@@ -86,26 +119,37 @@ function FilterBar() {
             title="Reset all filters"
             aria-label="Reset all product filters"
           >
-            <i className="fa-solid fa-rotate-left"></i> Reset
+            <i className="fa-solid fa-rotate-left" aria-hidden="true"></i> Reset
           </button>
         </div>
 
-        <div className="category-pills-row">
-          <button
-            className={`category-pill ${category === "all" ? "active" : ""}`}
-            onClick={() => setCategory("all")}
-          >
-            All Products
-          </button>
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              className={`category-pill ${category === cat ? "active" : ""}`}
-              onClick={() => setCategory(cat)}
-            >
-              {cat.replace("-", " ")}
-            </button>
-          ))}
+        <div
+          ref={pillsRowRef}
+          className="category-pills-row"
+          role="tablist"
+          aria-label="Product categories"
+        >
+          {allCategoryList.map((cat, idx) => {
+            const isSelected = category === cat;
+            const displayName = cat === "all" ? "All Products" : cat.replace("-", " ");
+            return (
+              <button
+                key={cat}
+                type="button"
+                data-cat={cat}
+                role="tab"
+                id={`category-tab-${cat}`}
+                aria-selected={isSelected}
+                tabIndex={isSelected ? 0 : -1}
+                className={`category-pill ${isSelected ? "active" : ""}`}
+                onClick={() => setCategory(cat)}
+                onKeyDown={(e) => handlePillKeyDown(e, idx)}
+                aria-label={`Filter by ${displayName}`}
+              >
+                {displayName}
+              </button>
+            );
+          })}
         </div>
       </div>
     </section>

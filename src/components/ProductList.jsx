@@ -60,22 +60,23 @@ function ProductList() {
   const visibleProducts = filteredProducts.slice(0, visibleCount);
 
   return (
-    <section className="products-section-container" id="products-section">
+    <section className="products-section-container" id="products-section" aria-label="Product Catalog">
       <div className="products-header-row">
         <div className="products-title-group">
           <h2 className="products-main-title">
             {category === "all" ? "All Products" : category.replace("-", " ")}
           </h2>
-          <span className="products-count-badge">
+          <span className="products-count-badge" aria-live="polite" aria-atomic="true">
             Showing {visibleProducts.length} of {filteredProducts.length} {filteredProducts.length === 1 ? "Item" : "Items"}
           </span>
         </div>
       </div>
 
       {loading ? (
-        <div className="products-grid">
+        <div className="products-grid" role="status" aria-busy="true" aria-label="Loading products">
+          <span className="sr-only">Loading products, please wait...</span>
           {[...Array(8)].map((_, i) => (
-            <div key={i} className="skeleton-card">
+            <div key={i} className="skeleton-card" aria-hidden="true">
               <div className="skeleton-box skeleton-img"></div>
               <div className="skeleton-body">
                 <div className="skeleton-box skeleton-line-short"></div>
@@ -86,28 +87,28 @@ function ProductList() {
           ))}
         </div>
       ) : error ? (
-        <div className="empty-state-card">
-          <i className="fa-solid fa-triangle-exclamation empty-icon" style={{ color: "var(--color-red)" }}></i>
+        <div className="empty-state-card" role="alert">
+          <i className="fa-solid fa-triangle-exclamation empty-icon" style={{ color: "var(--color-red)" }} aria-hidden="true"></i>
           <h3 className="empty-title">Failed to Load Products</h3>
           <p className="empty-text">{error}</p>
-          <button className="btn-empty-reset" onClick={() => window.location.reload()}>
-            <i className="fa-solid fa-rotate-right"></i> Try Again
+          <button className="btn-empty-reset" onClick={() => window.location.reload()} type="button">
+            <i className="fa-solid fa-rotate-right" aria-hidden="true"></i> Try Again
           </button>
         </div>
       ) : filteredProducts.length === 0 ? (
-        <div className="empty-state-card">
-          <i className="fa-solid fa-box-open empty-icon"></i>
+        <div className="empty-state-card" role="status" aria-live="polite">
+          <i className="fa-solid fa-box-open empty-icon" aria-hidden="true"></i>
           <h3 className="empty-title">No Matching Products Found</h3>
           <p className="empty-text">
             We couldn't find any products matching your current filters. Try adjusting your search or clearing filters.
           </p>
-          <button className="btn-empty-reset" onClick={resetFilters}>
-            <i className="fa-solid fa-filter-circle-xmark"></i> Clear Filters
+          <button className="btn-empty-reset" onClick={resetFilters} type="button" aria-label="Clear all active filters">
+            <i className="fa-solid fa-filter-circle-xmark" aria-hidden="true"></i> Clear Filters
           </button>
         </div>
       ) : (
         <>
-          <div className="products-grid">
+          <div className="products-grid" role="region" aria-label="Products list">
             {visibleProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -119,10 +120,10 @@ function ProductList() {
                 type="button"
                 className="btn-hero-primary"
                 onClick={() => setVisibleCount((prev) => prev + 20)}
-                aria-label="Load more products"
+                aria-label={`Load more products, ${filteredProducts.length - visibleCount} more remaining`}
                 style={{ padding: "0.85rem 2rem", fontSize: "1rem" }}
               >
-                <i className="fa-solid fa-arrow-down"></i> Load More Products ({filteredProducts.length - visibleCount} more)
+                <i className="fa-solid fa-arrow-down" aria-hidden="true"></i> Load More Products ({filteredProducts.length - visibleCount} more)
               </button>
             </div>
           )}

@@ -14,9 +14,9 @@ function Toast() {
   };
 
   return (
-    <div className="toast-container">
+    <div className="toast-container" role="status" aria-live="polite" aria-atomic="true">
       <div className={`toast-message ${toast.type || "success"}`}>
-        <i className={`${getIcon()} toast-icon`}></i>
+        <i className={`${getIcon()} toast-icon`} aria-hidden="true"></i>
         <span>{toast.message}</span>
       </div>
     </div>

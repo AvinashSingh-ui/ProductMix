@@ -1,6 +1,7 @@
 function ErrorFallback({ error, resetErrorBoundary, title = "Something went wrong" }) {
   return (
     <div
+      role="alert"
       className="error-boundary-card"
       style={{
         padding: "2.5rem 1.5rem",
@@ -26,6 +27,7 @@ function ErrorFallback({ error, resetErrorBoundary, title = "Something went wron
           color: "var(--color-red, #ef4444)",
           fontSize: "1.5rem",
         }}
+        aria-hidden="true"
       >
         <i className="fa-solid fa-triangle-exclamation"></i>
       </div>
@@ -61,8 +63,9 @@ function ErrorFallback({ error, resetErrorBoundary, title = "Something went wron
           alignItems: "center",
           gap: "0.5rem",
         }}
+        aria-label={`Retry loading ${title}`}
       >
-        <i className="fa-solid fa-rotate-right"></i> Try Again
+        <i className="fa-solid fa-rotate-right" aria-hidden="true"></i> Try Again
       </button>
     </div>
   );

@@ -55,6 +55,10 @@ function ProductProvider({ children }) {
         setLoading(true);
         const result = await fetchProducts();
         setProducts(result);
+        if (result.length > 0) {
+          const maxP = Math.ceil(Math.max(...result.map((p) => Math.round(p.price * USD_TO_INR))));
+          setMaxPrice(maxP);
+        }
         setLoading(false);
       } catch (err) {
         setError(err.message || "Failed to load products");

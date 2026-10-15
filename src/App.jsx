@@ -21,8 +21,11 @@ function MainLayout() {
 
   return (
     <div className="app-wrapper">
+      <a href="#main-content" className="skip-to-content">
+        Skip to main content
+      </a>
       <Header />
-      <main className="main-content">
+      <main id="main-content" className="main-content" tabIndex={-1}>
         <Hero />
         <SearchBar />
         <FilterBar />

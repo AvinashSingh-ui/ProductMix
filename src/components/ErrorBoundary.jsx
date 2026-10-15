@@ -26,6 +26,7 @@ class ErrorBoundary extends Component {
 
       return (
         <div
+          role="alert"
           className="error-boundary-card"
           style={{
             padding: "2.5rem 1.5rem",
@@ -51,6 +52,7 @@ class ErrorBoundary extends Component {
               color: "var(--color-red, #ef4444)",
               fontSize: "1.5rem",
             }}
+            aria-hidden="true"
           >
             <i className="fa-solid fa-triangle-exclamation"></i>
           </div>
@@ -87,8 +89,9 @@ class ErrorBoundary extends Component {
               alignItems: "center",
               gap: "0.5rem",
             }}
+            aria-label={`Retry loading ${this.props.fallbackTitle || "section"}`}
           >
-            <i className="fa-solid fa-rotate-right"></i> Try Again
+            <i className="fa-solid fa-rotate-right" aria-hidden="true"></i> Try Again
           </button>
         </div>
       );

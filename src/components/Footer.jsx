@@ -2,12 +2,12 @@ import "./Footer.css";
 
 function Footer() {
   return (
-    <footer className="footer-container">
-      <div className="footer-glow"></div>
+    <footer className="footer-container" role="contentinfo">
+      <div className="footer-glow" aria-hidden="true"></div>
       <div className="footer-inner">
         <div className="footer-col">
-          <a href="#" className="footer-logo">
-            <div className="brand-icon">
+          <a href="#" className="footer-logo" aria-label="ProductMix Home">
+            <div className="brand-icon" aria-hidden="true">
               <i className="fa-solid fa-layer-group"></i>
             </div>
             <span>Product<span className="brand-accent">Mix</span></span>
@@ -18,8 +18,8 @@ function Footer() {
         </div>
 
         <div className="footer-col">
-          <h4 className="footer-heading">Shop Categories</h4>
-          <ul className="footer-links">
+          <h4 className="footer-heading" id="footer-categories-heading">Shop Categories</h4>
+          <ul className="footer-links" aria-labelledby="footer-categories-heading">
             <li><a href="#products-section" className="footer-link">Beauty & Cosmetics</a></li>
             <li><a href="#products-section" className="footer-link">Electronics & Gadgets</a></li>
             <li><a href="#products-section" className="footer-link">Fashion & Apparel</a></li>
@@ -29,8 +29,8 @@ function Footer() {
         </div>
 
         <div className="footer-col">
-          <h4 className="footer-heading">Help & Support</h4>
-          <ul className="footer-links">
+          <h4 className="footer-heading" id="footer-support-heading">Help & Support</h4>
+          <ul className="footer-links" aria-labelledby="footer-support-heading">
             <li><a href="#" className="footer-link">Track Your Order</a></li>
             <li><a href="#" className="footer-link">Shipping & Delivery</a></li>
             <li><a href="#" className="footer-link">Returns & Exchange</a></li>
@@ -42,7 +42,8 @@ function Footer() {
         <div className="footer-col">
           <h4 className="footer-heading">Stay Connected</h4>
           <p className="footer-desc">Get exclusive deals, offers & product updates delivered to your inbox.</p>
-          <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
+          <form className="newsletter-form" onSubmit={(e) => e.preventDefault()} aria-label="Subscribe to newsletter form">
+            <label htmlFor="newsletter-email-input" className="sr-only">Email address for newsletter</label>
             <input
               id="newsletter-email-input"
               aria-label="Email address for newsletter"
@@ -61,13 +62,13 @@ function Footer() {
       <div className="footer-bottom-bar">
         <span>© {new Date().getFullYear()} ProductMix India Pvt. Ltd. All Rights Reserved.</span>
         <div className="footer-india-badge">
-          <span>🇮🇳</span> Made with Love in India
+          <span aria-hidden="true">🇮🇳</span> Made with Love in India
         </div>
-        <div className="payment-icons">
-          <i className="fa-brands fa-cc-visa"></i>
-          <i className="fa-brands fa-cc-mastercard"></i>
-          <i className="fa-brands fa-google-pay"></i>
-          <i className="fa-solid fa-money-bill-wave" title="Cash on Delivery"></i>
+        <div className="payment-icons" aria-label="Accepted payment methods">
+          <i className="fa-brands fa-cc-visa" aria-label="Visa"></i>
+          <i className="fa-brands fa-cc-mastercard" aria-label="Mastercard"></i>
+          <i className="fa-brands fa-google-pay" aria-label="Google Pay"></i>
+          <i className="fa-solid fa-money-bill-wave" title="Cash on Delivery" aria-label="Cash on Delivery"></i>
         </div>
       </div>
     </footer>
@@ -75,3 +76,4 @@ function Footer() {
 }
 
 export default Footer;
+
