@@ -35,6 +35,7 @@ function Header() {
             className="action-btn theme-toggle-btn"
             onClick={toggleTheme}
             title={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
+            aria-label={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
             type="button"
           >
             <i className={theme === "light" ? "fa-solid fa-moon" : "fa-solid fa-sun"}></i>
@@ -44,6 +45,7 @@ function Header() {
             className="action-btn favorite-btn"
             onClick={() => setIsWishlistOpen(true)}
             title="Favourites"
+            aria-label={`View Favourites (${wishlistCount} items)`}
             type="button"
           >
             <i className="fa-solid fa-heart" style={{ color: wishlistCount > 0 ? "var(--color-red)" : "inherit" }}></i>
@@ -56,6 +58,7 @@ function Header() {
             className="action-btn cart-btn"
             onClick={() => setIsCartOpen(true)}
             title="Shopping Cart"
+            aria-label={`View Shopping Cart (${cartItemCount} items)`}
             type="button"
           >
             <i className="fa-solid fa-bag-shopping"></i>

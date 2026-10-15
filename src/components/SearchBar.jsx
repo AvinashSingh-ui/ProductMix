@@ -6,11 +6,7 @@ function SearchBar() {
   const inputRef = useRef(null);
   const { search, setSearch } = useContext(ProductContext);
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
+
 
   const handleClear = () => {
     setSearch("");
@@ -25,6 +21,8 @@ function SearchBar() {
         <i className="fa-solid fa-magnifying-glass search-icon-left"></i>
         <input
           ref={inputRef}
+          id="product-search-input"
+          aria-label="Search products by title, category, or description"
           type="text"
           className="search-input"
           placeholder="Search products by title, category, description..."
@@ -37,6 +35,7 @@ function SearchBar() {
             className="search-clear-btn"
             onClick={handleClear}
             title="Clear search"
+            aria-label="Clear search query"
           >
             <i className="fa-solid fa-xmark"></i>
           </button>

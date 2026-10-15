@@ -36,6 +36,7 @@ function ProductDetailModal() {
           onClick={() => setSelectedProduct(null)}
           type="button"
           title="Close"
+          aria-label="Close product details modal"
         >
           <i className="fa-solid fa-xmark"></i>
         </button>
@@ -45,7 +46,7 @@ function ProductDetailModal() {
             {selectedProduct.discountPercentage && (
               <span className="badge-discount">{Math.round(selectedProduct.discountPercentage)}% OFF</span>
             )}
-            <img src={activeImg} alt={selectedProduct.title} className="modal-main-img" />
+            <img src={activeImg} alt={selectedProduct.title} className="modal-main-img" width="400" height="400" />
           </div>
 
           {selectedProduct.images?.length > 1 && (
@@ -54,9 +55,11 @@ function ProductDetailModal() {
                 <img
                   key={i}
                   src={img}
-                  alt=""
+                  alt={`${selectedProduct.title} preview ${i + 1}`}
                   className={`modal-thumb ${activeImg === img ? "active" : ""}`}
                   onClick={() => setActiveImg(img)}
+                  width="60"
+                  height="60"
                 />
               ))}
             </div>
@@ -107,9 +110,23 @@ function ProductDetailModal() {
 
           <div className="modal-actions-row">
             <div className="cart-qty-row" style={{ transform: "scale(1.1)" }}>
-              <button className="qty-btn" onClick={() => setQty(Math.max(1, qty - 1))} type="button">-</button>
+              <button
+                className="qty-btn"
+                onClick={() => setQty(Math.max(1, qty - 1))}
+                aria-label="Decrease quantity"
+                type="button"
+              >
+                -
+              </button>
               <span className="qty-num">{qty}</span>
-              <button className="qty-btn" onClick={() => setQty(qty + 1)} type="button">+</button>
+              <button
+                className="qty-btn"
+                onClick={() => setQty(qty + 1)}
+                aria-label="Increase quantity"
+                type="button"
+              >
+                +
+              </button>
             </div>
 
             <button
@@ -119,6 +136,7 @@ function ProductDetailModal() {
                 addToCart(selectedProduct, qty);
                 setSelectedProduct(null);
               }}
+              aria-label={`Add ${qty} items of ${selectedProduct.title} to cart`}
               type="button"
             >
               <i className="fa-solid fa-bag-shopping"></i> Add {qty} to Cart
@@ -130,6 +148,7 @@ function ProductDetailModal() {
               onClick={() => toggleWishlist(selectedProduct)}
               type="button"
               title="Add to Favourites"
+              aria-label={favorited ? "Remove from favourites" : "Add to favourites"}
             >
               <i className={favorited ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i>
             </button>

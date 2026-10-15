@@ -35,8 +35,6 @@
   width: 40px;
   height: 40px;
   background: linear-gradient(135deg, var(--color-blue) 0%, #3b82f6 50%, var(--color-blue-dark) 100%);
-  background-size: 200% 200%;
-  animation: gradient-shift 4s ease infinite;
   color: var(--color-yellow-bright);
   border-radius: var(--radius-md);
   display: flex;

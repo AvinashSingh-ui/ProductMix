@@ -23,7 +23,12 @@ function WishlistDrawer() {
             <span>My Favourites</span>
             <span className="badge badge-favorite" style={{ position: "static" }}>{wishlistCount}</span>
           </div>
-          <button className="drawer-close-btn" onClick={() => setIsWishlistOpen(false)} type="button">
+          <button
+            className="drawer-close-btn"
+            onClick={() => setIsWishlistOpen(false)}
+            aria-label="Close favourites drawer"
+            type="button"
+          >
             <i className="fa-solid fa-xmark"></i>
           </button>
         </div>
@@ -50,6 +55,9 @@ function WishlistDrawer() {
                   src={product.thumbnail || product.images?.[0]}
                   alt={product.title}
                   className="cart-item-img"
+                  loading="lazy"
+                  width="70"
+                  height="70"
                 />
                 <div className="cart-item-details">
                   <h4 className="cart-item-title">{product.title}</h4>
@@ -58,6 +66,7 @@ function WishlistDrawer() {
                     <button
                       className="btn-move-to-cart"
                       onClick={() => addToCart(product)}
+                      aria-label={`Add ${product.title} to cart`}
                       type="button"
                     >
                       <i className="fa-solid fa-cart-plus"></i> Add to Cart
@@ -68,6 +77,7 @@ function WishlistDrawer() {
                   className="cart-item-remove-btn"
                   onClick={() => toggleWishlist(product)}
                   title="Remove from Favourites"
+                  aria-label={`Remove ${product.title} from favourites`}
                   type="button"
                   style={{ color: "var(--color-red)" }}
                 >

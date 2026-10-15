@@ -24,9 +24,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--color-blue), var(--color-yellow), var(--color-blue));
-  background-size: 200% 100%;
-  animation: gradient-shift 4s ease infinite;
+  background: linear-gradient(90deg, var(--color-blue), var(--color-yellow));
 }
 
 .filter-top-row {

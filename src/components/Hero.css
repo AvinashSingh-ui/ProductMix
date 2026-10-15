@@ -6,8 +6,6 @@
 
 .hero-card {
   background: linear-gradient(135deg, #0a0f1e 0%, #111d3a 40%, #1a3270 70%, #1d4ed8 100%);
-  background-size: 300% 300%;
-  animation: gradient-shift 10s ease infinite;
   border-radius: var(--radius-xl);
   padding: 3.5rem 3rem;
   color: var(--color-white);

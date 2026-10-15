@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { useContext, useMemo, useState, useEffect } from "react";
 import { ProductContext } from "../context/productContext";
 import ProductCard from "./ProductCard";
 import "./ProductList.css";
@@ -15,6 +15,13 @@ function ProductList() {
     resetFilters,
     toINR
   } = useContext(ProductContext);
+
+  const [visibleCount, setVisibleCount] = useState(20);
+
+  // Reset to 20 when user filters or searches
+  useEffect(() => {
+    setVisibleCount(20);
+  }, [search, category, sortBy, maxPrice]);
 
   const filteredProducts = useMemo(() => {
     let result = [...products];
@@ -50,6 +57,8 @@ function ProductList() {
     return result;
   }, [products, search, category, sortBy, maxPrice, toINR]);
 
+  const visibleProducts = filteredProducts.slice(0, visibleCount);
+
   return (
     <section className="products-section-container" id="products-section">
       <div className="products-header-row">
@@ -58,7 +67,7 @@ function ProductList() {
             {category === "all" ? "All Products" : category.replace("-", " ")}
           </h2>
           <span className="products-count-badge">
-            {filteredProducts.length} {filteredProducts.length === 1 ? "Item" : "Items"}
+            Showing {visibleProducts.length} of {filteredProducts.length} {filteredProducts.length === 1 ? "Item" : "Items"}
           </span>
         </div>
       </div>
@@ -97,11 +106,27 @@ function ProductList() {
           </button>
         </div>
       ) : (
-        <div className="products-grid">
-          {filteredProducts.map((product, index) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <>
+          <div className="products-grid">
+            {visibleProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+
+          {filteredProducts.length > visibleCount && (
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "2.5rem" }}>
+              <button
+                type="button"
+                className="btn-hero-primary"
+                onClick={() => setVisibleCount((prev) => prev + 20)}
+                aria-label="Load more products"
+                style={{ padding: "0.85rem 2rem", fontSize: "1rem" }}
+              >
+                <i className="fa-solid fa-arrow-down"></i> Load More Products ({filteredProducts.length - visibleCount} more)
+              </button>
+            </div>
+          )}
+        </>
       )}
     </section>
   );

@@ -22,10 +22,12 @@ function FilterBar() {
         <div className="filter-top-row">
           <div className="filter-group">
             <div className="filter-control">
-              <label className="filter-label">
+              <label className="filter-label" htmlFor="filter-category-select">
                 <i className="fa-solid fa-list-check"></i> Category
               </label>
               <select
+                id="filter-category-select"
+                aria-label="Filter by product category"
                 className="filter-select"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
@@ -40,10 +42,12 @@ function FilterBar() {
             </div>
 
             <div className="filter-control">
-              <label className="filter-label">
+              <label className="filter-label" htmlFor="filter-sort-select">
                 <i className="fa-solid fa-arrow-down-short-wide"></i> Sort By
               </label>
               <select
+                id="filter-sort-select"
+                aria-label="Sort products by criteria"
                 className="filter-select"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
@@ -57,10 +61,12 @@ function FilterBar() {
             </div>
 
             <div className="price-range-control">
-              <label className="filter-label">
+              <label className="filter-label" htmlFor="filter-price-slider">
                 <i className="fa-solid fa-indian-rupee-sign"></i> Max:
               </label>
               <input
+                id="filter-price-slider"
+                aria-label="Filter by maximum price"
                 type="range"
                 className="price-range-slider"
                 min="0"
@@ -78,6 +84,7 @@ function FilterBar() {
             className="btn-reset-filters"
             onClick={resetFilters}
             title="Reset all filters"
+            aria-label="Reset all product filters"
           >
             <i className="fa-solid fa-rotate-left"></i> Reset
           </button>

@@ -19,7 +19,7 @@ function CartDrawer() {
 
   const handleCheckout = () => {
     if (cart.length === 0) return;
-    showToast("🎉 Order placed! Thank you for shopping with us.", "success");
+    showToast("Order placed! Thank you for shopping with us.", "success");
     clearCart();
     setIsCartOpen(false);
   };
@@ -33,7 +33,12 @@ function CartDrawer() {
             <span>Your Cart</span>
             <span className="products-count-badge">{cartItemCount}</span>
           </div>
-          <button className="drawer-close-btn" onClick={() => setIsCartOpen(false)} type="button">
+          <button
+            className="drawer-close-btn"
+            onClick={() => setIsCartOpen(false)}
+            aria-label="Close cart drawer"
+            type="button"
+          >
             <i className="fa-solid fa-xmark"></i>
           </button>
         </div>
@@ -59,6 +64,9 @@ function CartDrawer() {
                   src={product.thumbnail || product.images?.[0]}
                   alt={product.title}
                   className="cart-item-img"
+                  loading="lazy"
+                  width="70"
+                  height="70"
                 />
                 <div className="cart-item-details">
                   <h4 className="cart-item-title">{product.title}</h4>
@@ -67,6 +75,7 @@ function CartDrawer() {
                     <button
                       className="qty-btn"
                       onClick={() => updateCartQuantity(product.id, -1)}
+                      aria-label={`Decrease quantity of ${product.title}`}
                       type="button"
                     >
                       -
@@ -75,6 +84,7 @@ function CartDrawer() {
                     <button
                       className="qty-btn"
                       onClick={() => updateCartQuantity(product.id, 1)}
+                      aria-label={`Increase quantity of ${product.title}`}
                       type="button"
                     >
                       +
@@ -85,6 +95,7 @@ function CartDrawer() {
                   className="cart-item-remove-btn"
                   onClick={() => removeFromCart(product.id)}
                   title="Remove Item"
+                  aria-label={`Remove ${product.title} from cart`}
                   type="button"
                 >
                   <i className="fa-solid fa-trash-can"></i>

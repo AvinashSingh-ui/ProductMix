@@ -44,12 +44,14 @@ function Footer() {
           <p className="footer-desc">Get exclusive deals, offers & product updates delivered to your inbox.</p>
           <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
             <input
+              id="newsletter-email-input"
+              aria-label="Email address for newsletter"
               type="email"
               className="newsletter-input"
               placeholder="Enter your email"
               required
             />
-            <button type="submit" className="newsletter-btn">
+            <button type="submit" className="newsletter-btn" aria-label="Subscribe to newsletter">
               Join
             </button>
           </form>
@@ -59,7 +61,7 @@ function Footer() {
       <div className="footer-bottom-bar">
         <span>© {new Date().getFullYear()} ProductMix India Pvt. Ltd. All Rights Reserved.</span>
         <div className="footer-india-badge">
-          <span>🇮🇳</span> Made with ❤️ in India
+          <span>🇮🇳</span> Made with Love in India
         </div>
         <div className="payment-icons">
           <i className="fa-brands fa-cc-visa"></i>

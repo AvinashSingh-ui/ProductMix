@@ -38,6 +38,7 @@ function ProductCard({ product }) {
             toggleWishlist(product);
           }}
           title={favorited ? "Remove from Favourites" : "Add to Favourites"}
+          aria-label={favorited ? `Remove ${product.title} from favourites` : `Add ${product.title} to favourites`}
         >
           <i className={favorited ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i>
         </button>
@@ -47,6 +48,9 @@ function ProductCard({ product }) {
           alt={product.title}
           className="product-img"
           loading="lazy"
+          decoding="async"
+          width="240"
+          height="240"
         />
 
         <button
@@ -56,6 +60,7 @@ function ProductCard({ product }) {
             e.stopPropagation();
             setSelectedProduct(product);
           }}
+          aria-label={`Quick view ${product.title}`}
         >
           <i className="fa-regular fa-eye"></i> Quick View
         </button>
@@ -93,6 +98,7 @@ function ProductCard({ product }) {
             className="add-cart-btn"
             onClick={() => addToCart(product)}
             title="Add to Cart"
+            aria-label={`Add ${product.title} to cart`}
           >
             <i className="fa-solid fa-cart-plus"></i> Add
           </button>
